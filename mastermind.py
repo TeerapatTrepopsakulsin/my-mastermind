@@ -5,6 +5,7 @@ def play_mastermind(colours, positions):
     print(f'Playing Mastermind with {colours} colours and {positions} positions')
     colours_choice = [str(i) for i in range(1, colours+1)]
     answer = random.sample(colours_choice, positions)
+    print(answer)
     attempt = 0
     for i in range(10):
         attempt += 1
@@ -19,13 +20,16 @@ def play_mastermind(colours, positions):
             num_list = []
             if num in answer and player_ans.index(num) == answer.index(num):
                 correct_pos += 1
-            elif num in answer and num not in num_list:
-                num_list.append(num)
+            if num in answer:
+                print(num_list)
+                if num not in num_list:
+                    num_list.append(num)
+            for i in range(len(num_list)):
                 correct_col += 1
         a = ''
-        for m in answer:
+        for m in player_ans:
             a += m
-        print('Your anwer is',a)
+        print('Your answer is',a)
         print('*'*correct_pos + 'o'*correct_col)
         print()
         if player_ans == answer:
