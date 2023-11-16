@@ -118,6 +118,63 @@ class Mastermind:
     def __str__(self):
         return f'Playing Mastermind with {self.colours} colours and {self.positions} positions'
 
+    def setup(self):
+        print(self)
+        print('Select difficulty')
+        colours = int(input('Input number of colours (1 to 8): '))
+        positions = int(input('Input number of positions (1 to 10): '))
+        self.set_colours(colours)
+        self.set_positions(positions)
+        if colours >= positions:
+            duplicated = input('Allow duplicated or nah(Enter if nah)? ')
+            if duplicated == '':
+                self.gen_code()
+            else:
+                self.gen_code_duplicate()
+        else:
+            self.gen_code_duplicate()
+
+        reset = input('Reset? (Press r to reset) ')
+        if reset in ['r', 'R']:
+            print()
+            print('===RESET===')
+            print()
+            self.setup()
+
+    # def play(self):
+    #
+    #
+    #     attempt = 0
+    #     for i in range(10):
+    #         attempt += 1
+    #         while True:
+    #             player_ans = list(str(input('What is your guess? ')))
+    #             if len(player_ans) == positions:
+    #                 break
+    #             print(f'please input exactly {positions} positions.')
+    #         correct_pos = 0
+    #         correct_col = 0
+    #         for num in player_ans:
+    #             num_list = []
+    #             if num in answer and player_ans.index(num) == answer.index(num):
+    #                 correct_pos += 1
+    #             if num in answer:
+    #                 print(num_list)
+    #                 if num not in num_list:
+    #                     num_list.append(num)
+    #             for i in range(len(num_list)):
+    #                 correct_col += 1
+    #         a = ''
+    #         for m in player_ans:
+    #             a += m
+    #         print('Your answer is',a)
+    #         print('*'*correct_pos + 'o'*correct_col)
+    #         print()
+    #         if player_ans == answer:
+    #             print('Congrats! You win.')
+    #             print(f'You solve it after {attempt} rounds.')
+    #             return True
+
 
 game1 = Mastermind()
 print(game1.positions)
@@ -133,3 +190,6 @@ game2.gen_code_duplicate()
 print('code',game2.code)
 print(game2.correct_positions(game1.code))
 print(game2.correct_colours(game1.code))
+
+game3 = Mastermind()
+game3.setup()
