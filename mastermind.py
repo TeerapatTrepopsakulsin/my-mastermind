@@ -56,7 +56,7 @@ class Mastermind:
     def __init__(self, colours=8, positions=4):
         self.colours = colours
         self.positions = positions
-        self.code = []
+        self.__code = []
 
     def set_colours(self, colours):
         self.colours = colours
@@ -75,7 +75,7 @@ class Mastermind:
     def gen_code(self):
         colours_choice = [str(i) for i in range(1, self.colours + 1)]
         code = random.sample(colours_choice, self.positions)
-        self.__code = code
+        self.code = code
 
     def gen_code_duplicate(self):
         colours_choice = [str(i) for i in range(1, self.colours + 1)]
@@ -84,7 +84,14 @@ class Mastermind:
             for col in colours_choice:
                 colours_choice_duplicate.append(col)
         code = random.sample(colours_choice_duplicate, self.positions)
-        self.__code = code
+        self.code = code
+
+    def correct_positions(self, answer):
+        correct_pos = 0
+        for num in answer:
+            if num in self.code and answer.index(num) == self.code.index(num):
+                correct_pos += 1
+        return correct_pos
 
 game1 = Mastermind()
 print(game1.positions)
@@ -92,3 +99,4 @@ print(game1.positions)
 print(game1.code)
 game1.gen_code()
 print(game1.code)
+print(game1.correct_positions(game1.code))
