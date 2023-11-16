@@ -49,3 +49,23 @@ def play_mastermind(colours, positions):
 
 
 play_mastermind(8, 4)
+
+
+class Mastermind:
+
+    def __init__(self, colours=8, positions=4):
+        self.colours = colours
+        self.positions = positions
+        self.code = []
+
+    def set_colours(self, colours):
+        self.colours = colours
+
+    def set_positions(self, positions):
+        self.positions = positions
+
+    def gen_code(self):
+        colours_choice = [str(i) for i in range(1, self.colours + 1)]
+        code = random.sample(colours_choice, self.positions)
+        return code
+
