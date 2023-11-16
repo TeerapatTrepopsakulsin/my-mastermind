@@ -1,54 +1,4 @@
-import copy, random
-
-
-# def play_mastermind(colours, positions):
-#     print(f'Playing Mastermind with {colours} colours and {positions} positions')
-#     colours_choice = [str(i) for i in range(1, colours+1)]
-#     answer = random.sample(colours_choice, positions)
-#     print(answer)
-#     attempt = 0
-#     for i in range(10):
-#         attempt += 1
-#         while True:
-#             player_ans = list(str(input('What is your guess? ')))
-#             if len(player_ans) == positions:
-#                 break
-#             print(f'please input exactly {positions} positions.')
-#         correct_pos = 0
-#         correct_col = 0
-#         for num in player_ans:
-#             num_list = []
-#             if num in answer and player_ans.index(num) == answer.index(num):
-#                 correct_pos += 1
-#             if num in answer:
-#                 print(num_list)
-#                 if num not in num_list:
-#                     num_list.append(num)
-#             for i in range(len(num_list)):
-#                 correct_col += 1
-#         a = ''
-#         for m in player_ans:
-#             a += m
-#         print('Your answer is',a)
-#         print('*'*correct_pos + 'o'*correct_col)
-#         print()
-#         if player_ans == answer:
-#             print('Congrats! You win.')
-#             print(f'You solve it after {attempt} rounds.')
-#             return True
-#
-#     for i in answer:
-#         print(i, end='')
-#     print('Better luck next time.')
-#     return False
-
-
-
-
-
-
-
-# play_mastermind(8, 4)
+import random
 
 
 class Mastermind:
@@ -119,7 +69,6 @@ class Mastermind:
         return f'Playing Mastermind with {self.colours} colours and {self.positions} positions'
 
     def setup(self):
-        print(self)
         print('Select difficulty')
         colours = int(input('Input number of colours (1 to 8): '))
         positions = int(input('Input number of positions (1 to 10): '))
@@ -141,55 +90,37 @@ class Mastermind:
             print()
             self.setup()
 
-    # def play(self):
-    #
-    #
-    #     attempt = 0
-    #     for i in range(10):
-    #         attempt += 1
-    #         while True:
-    #             player_ans = list(str(input('What is your guess? ')))
-    #             if len(player_ans) == positions:
-    #                 break
-    #             print(f'please input exactly {positions} positions.')
-    #         correct_pos = 0
-    #         correct_col = 0
-    #         for num in player_ans:
-    #             num_list = []
-    #             if num in answer and player_ans.index(num) == answer.index(num):
-    #                 correct_pos += 1
-    #             if num in answer:
-    #                 print(num_list)
-    #                 if num not in num_list:
-    #                     num_list.append(num)
-    #             for i in range(len(num_list)):
-    #                 correct_col += 1
-    #         a = ''
-    #         for m in player_ans:
-    #             a += m
-    #         print('Your answer is',a)
-    #         print('*'*correct_pos + 'o'*correct_col)
-    #         print()
-    #         if player_ans == answer:
-    #             print('Congrats! You win.')
-    #             print(f'You solve it after {attempt} rounds.')
-    #             return True
+    def play(self):
+        self.setup()
+        print()
+        print(self)
+        print(self.code)
+
+        attempt = 0
+        while True:
+            while True:
+                attempt += 1
+                player_ans = list(str(input('What is your guess? ')))
+                if len(player_ans) == self.positions:
+                    break
+                print(f'please input exactly {self.positions} positions.')
+
+            a = ''
+            for m in player_ans:
+                a += m
+            print('Your guess is', a)
+
+            correct_pos = self.correct_positions(player_ans)
+            correct_col = self.correct_colours(player_ans)
+
+            print('*' * correct_pos + 'o' * correct_col)
+            print()
+
+            if player_ans == self.code:
+                print('Congrats! You win.')
+                print(f'You solve it after {attempt} rounds.')
+                break
 
 
 game1 = Mastermind()
-print(game1.positions)
-print(game1.positions)
-print(game1.code)
-game1.gen_code()
-print('ans',game1.code)
-print(game1.correct_positions(game1.code))
-# print(game1.count_colours_min('5'))
-# print(game1.count_colours_min('1'))
-game2 = Mastermind()
-game2.gen_code_duplicate()
-print('code',game2.code)
-print(game2.correct_positions(game1.code))
-print(game2.correct_colours(game1.code))
-
-game3 = Mastermind()
-game3.setup()
+game1.play()
