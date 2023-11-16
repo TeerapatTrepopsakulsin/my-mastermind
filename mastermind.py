@@ -115,6 +115,10 @@ class Mastermind:
             num_list.append(num)
         return correct_col
 
+    def __str__(self):
+        return f'Playing Mastermind with {self.colours} colours and {self.positions} positions'
+
+
 game1 = Mastermind()
 print(game1.positions)
 print(game1.positions)
