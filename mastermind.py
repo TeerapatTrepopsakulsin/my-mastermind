@@ -93,10 +93,39 @@ class Mastermind:
                 correct_pos += 1
         return correct_pos
 
+    def count_colours_min(self,answer,col):
+        n_col_code = 0
+        for i in self.code:
+            if col == i:
+                n_col_code += 1
+        n_col_ans = 0
+        for i in answer:
+            if col == i:
+                n_col_ans += 1
+        if n_col_code <= n_col_ans:
+            return n_col_code
+        return n_col_ans
+
+    def correct_colours(self, answer):
+        correct_col = 0
+        num_list = []
+        for num in self.code:
+            if num in answer and answer.index(num) != self.code.index(num) and num not in num_list:
+                correct_col += self.count_colours_min(answer, num)
+            num_list.append(num)
+        return correct_col
+
 game1 = Mastermind()
 print(game1.positions)
 print(game1.positions)
 print(game1.code)
 game1.gen_code()
-print(game1.code)
+print('ans',game1.code)
 print(game1.correct_positions(game1.code))
+# print(game1.count_colours_min('5'))
+# print(game1.count_colours_min('1'))
+game2 = Mastermind()
+game2.gen_code_duplicate()
+print('code',game2.code)
+print(game2.correct_positions(game1.code))
+print(game2.correct_colours(game1.code))
